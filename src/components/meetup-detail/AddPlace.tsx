@@ -10,6 +10,7 @@ interface AddPlaceProps {
 
 export function AddPlace({ meetupId }: AddPlaceProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <>
       <div
@@ -21,6 +22,7 @@ export function AddPlace({ meetupId }: AddPlaceProps) {
         <SquarePlusBtn className="w-5 " />
         <div>장소 추가하기</div>
       </div>
+
       {isOpen && <AddPlaceModal meetupId={meetupId} onClose={() => setIsOpen(false)} />}
     </>
   );
