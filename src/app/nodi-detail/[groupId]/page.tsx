@@ -34,10 +34,6 @@ export default async function NodiDetailPage({ params }: { params: Promise<{ gro
     src: m.profiles?.avatar_url ?? null,
   }));
 
-  // const now = new Date();
-  console.log(meetups);
-  //onsole.log(now) Tue Sep 08 2026 13:26:31 GMT+0900 (한국 표준시)
-
   const onProgressMeetupList = meetups.filter(
     (meetup) =>
       meetup.status === "voting" || (meetup.status === "confirmed" && !isPast(meetup.meet_date)),
@@ -73,7 +69,7 @@ export default async function NodiDetailPage({ params }: { params: Promise<{ gro
         // TODO: 다녀온 장소 수 — places 집계가 없어 아직 0으로 둔다.
         visitedPlaceCounter={0}
       />
-      <CurrentNodiContainer currentNodiList={onProgressMeetupList} />
+      <CurrentNodiContainer groupId={groupId} currentNodiList={onProgressMeetupList} />
       <PastNodiContainer pastNodiList={pastMeetupList} />
     </div>
   );
