@@ -14,7 +14,6 @@ import { Button } from "../Button/Button";
 import SearchIcon from "@/assets/icon/search-icon.svg";
 import ExternalLink from "@/assets/icon/external-link.svg";
 import Check from "@/assets/icon/check-icon.svg";
-import Link from "next/link";
 
 interface AddPlaceModalProps {
   meetupId: string;
@@ -85,7 +84,7 @@ export function AddPlaceModal({ meetupId, onClose }: AddPlaceModalProps) {
                   <div className="truncate text-sm text-text-placeholder">
                     {place.roadAddress || place.address}
                   </div>
-                  <Link
+                  <a
                     href={`https://map.naver.com/p/search/${encodeURIComponent(`${place.name} ${place.address}`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -93,7 +92,7 @@ export function AddPlaceModal({ meetupId, onClose }: AddPlaceModalProps) {
                   >
                     <ExternalLink className="w-4" />
                     네이버 지도 바로가기
-                  </Link>
+                  </a>
                 </div>
                 <Button
                   className="w-25 h-10"
