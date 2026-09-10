@@ -1,5 +1,6 @@
 import { getGroup, getMeetup } from "@/api";
 import { MeetupHeader } from "@/components/meetup-detail/MeetupHeader";
+import { VotingPlace } from "@/components/meetup-detail/VotingPlace";
 import { BadgeKind } from "@/tokens/badges";
 import { createClient } from "@/utils/supabase/server";
 
@@ -27,6 +28,7 @@ export default async function MeetupDetailPage({
         badge={meetup.status as BadgeKind}
         date={meetup.meet_date ?? ""}
       />
+      <VotingPlace meetupId={meetupId} />
     </div>
   );
 }
