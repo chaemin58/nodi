@@ -106,7 +106,7 @@ export function AddPlaceModal({ meetupId, onClose }: AddPlaceModalProps) {
                 <Button
                   className="w-25 h-10"
                   type="button"
-                  disabled={pendingNames.includes(place.name)}
+                  disabled={isAdded || pendingNames.includes(place.name)}
                   onClick={() => handleAdd(place)}
                 >
                   {isAdded ? (
