@@ -25,6 +25,7 @@ export function AddPlaceModal({ meetupId, onClose }: AddPlaceModalProps) {
   const [results, setResults] = useState<SearchedPlace[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [addedNames, setAddedNames] = useState<string[]>([]);
+  const [pendingNames, setPendingNames] = useState<string[]>([]);
   const router = useRouter();
 
   const handleSearch = async () => {
@@ -39,18 +40,26 @@ export function AddPlaceModal({ meetupId, onClose }: AddPlaceModalProps) {
   };
 
   const handleAdd = async (place: SearchedPlace) => {
-    const supabase = createClient();
-    await addPlace(supabase, {
-      meetupId,
-      name: place.name,
-      category: place.category,
-      address: place.roadAddress || place.address,
-      lat: place.lat,
-      lng: place.lng,
-    });
-    setAddedNames((prev) => [...prev, place.name]);
-    // 페이지가 서버 컴포넌트라, 갱신하지 않으면 목록에 새로 담은 장소가 안 보인다.
-    router.refresh();
+    //버튼 먼저 막기
+    setPendingNames((prev) => [...prev, place.name]);
+    try {
+      const supabase = createClient();
+      await addPlace(supabase, {
+        meetupId,
+        name: place.name,
+        category: place.category,
+        address: place.roadAddress || place.address,
+        lat: place.lat,
+        lng: place.lng,
+      });
+      setAddedNames((prev) => [...prev, place.name]);
+
+      router.refresh();
+    } catch (error) {
+      console.error("담기 실패", error);
+    } finally {
+      setPendingNames((prev) => prev.filter((name) => name !== place.name));
+    }
   };
 
   return (
@@ -97,7 +106,7 @@ export function AddPlaceModal({ meetupId, onClose }: AddPlaceModalProps) {
                 <Button
                   className="w-25 h-10"
                   type="button"
-                  disabled={isAdded}
+                  disabled={pendingNames.includes(place.name)}
                   onClick={() => handleAdd(place)}
                 >
                   {isAdded ? (
