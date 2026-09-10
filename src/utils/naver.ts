@@ -6,7 +6,8 @@
 //   NAVER_SEARCH_CLIENT_SECRET
 //   (둘 다 developers.naver.com → 애플리케이션 등록 → 검색 API 에서 발급)
 
-const ENDPOINT = "https://openapi.naver.com/v1/search/local.json";
+// 2026-09 NAVER API HUB 이관으로 구 openapi.naver.com 엔드포인트 대신 이걸 씀.
+const ENDPOINT = "https://naverapihub.apigw.ntruss.com/search/v1/local";
 
 // 프론트에 돌려줄, 우리 앱이 쓰기 좋은 장소 모양.
 // (네이버 원본 응답을 그대로 안 주고, 필요한 것만 골라 정리해서 준다)
@@ -63,8 +64,8 @@ export async function searchPlaces(query: string, display = 5): Promise<Searched
 
   const res = await fetch(url, {
     headers: {
-      "X-Naver-Client-Id": clientId,
-      "X-Naver-Client-Secret": clientSecret,
+      "X-NCP-APIGW-API-KEY-ID": clientId,
+      "X-NCP-APIGW-API-KEY": clientSecret,
     },
     // 검색 결과는 실시간이어야 하므로 캐시 안 함
     cache: "no-store",
