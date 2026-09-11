@@ -47,6 +47,8 @@
   --color-badge-dday-fg: #185fa5;
   --color-badge-couple-bg: #fbeaf0; /* 커플 포인트 (핑크) */
   --color-badge-couple-fg: #993556;
+  --color-badge-vote-bg: #fef6d8; /* 득표수 (병아리색 연노랑) */
+  --color-badge-vote-fg: #92720f;
 
   /* 시멘틱 */
 
