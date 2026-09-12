@@ -16,7 +16,7 @@ interface PlaceListProps {
 }
 
 export function PlaceCardContainer({ places, meetupId, votingList, votedCount }: PlaceListProps) {
-  const [selectedList, setSelectedList] = useState<string[]>([]);
+  const [selectedList, setSelectedList] = useState<string[]>(votingList);
   const [isVoted, setIsVoted] = useState<boolean>(votingList.length !== 0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
