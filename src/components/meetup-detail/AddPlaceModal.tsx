@@ -20,7 +20,7 @@ interface AddPlaceModalProps {
   onClose: () => void;
 }
 
-const CATEGORIES = ["밥", "술", "카페", "기타"] as const;
+export const CATEGORIES = ["밥", "술", "카페", "기타"] as const;
 
 // 같은 이름의 다른 지점(체인점 등)이 같이 검색될 수 있어 이름만으로는 구분이 안 됨.
 function placeKey(place: SearchedPlace): string {
