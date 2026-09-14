@@ -53,52 +53,27 @@ export function PlaceCardContainer({ places, meetupId, votingList, votedCount }:
     setIsVoted(false);
   };
 
-  if (!isVoted)
-    return (
-      <div className="flex flex-col gap-2 md:gap-4">
-        {places.map((place) => (
-          <PlaceCard
-            key={place.id}
-            place={place}
-            isSelected={selectedList.includes(place.id)}
-            onToggle={() => handleToggle(place.id)}
-            isUserVoted={isVoted}
-            votedCount={votedCount[place.id]}
-          />
-        ))}
-        <AddPlace meetupId={meetupId} />
-        <Button
-          className="bg-black hover:bg-gray-800 active:bg-gray-950"
-          onClick={handleVoting}
-          disabled={isLoading}
-        >
-          투표하기
-        </Button>
-      </div>
-    );
-
-  if (isVoted)
-    return (
-      <div className="flex flex-col gap-2 md:gap-4">
-        {places.map((place) => (
-          <PlaceCard
-            key={place.id}
-            place={place}
-            isSelected={selectedList.includes(place.id)}
-            onToggle={() => handleToggle(place.id)}
-            isUserVoted={isVoted}
-            isVotedCard={selectedList.includes(place.id)}
-            votedCount={votedCount[place.id]}
-          />
-        ))}
-        <AddPlace meetupId={meetupId} />
-        <Button
-          className="bg-black hover:bg-gray-800 active:bg-gray-950"
-          onClick={handleVotingAgain}
-          disabled={isLoading}
-        >
-          다시 투표하기
-        </Button>
-      </div>
-    );
+  return (
+    <div className="flex flex-col gap-2 md:gap-4">
+      {places.map((place) => (
+        <PlaceCard
+          key={place.id}
+          place={place}
+          isSelected={selectedList.includes(place.id)}
+          onToggle={() => handleToggle(place.id)}
+          isUserVoted={isVoted}
+          isVotedCard={isVoted && selectedList.includes(place.id)}
+          votedCount={votedCount[place.id]}
+        />
+      ))}
+      <AddPlace meetupId={meetupId} />
+      <Button
+        className="bg-black hover:bg-gray-800 active:bg-gray-950"
+        onClick={isVoted ? handleVotingAgain : handleVoting}
+        disabled={isLoading}
+      >
+        {isVoted ? "다시 투표하기" : "투표하기"}
+      </Button>
+    </div>
+  );
 }
