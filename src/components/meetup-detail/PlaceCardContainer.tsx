@@ -7,6 +7,8 @@ import { setMyVotes, type PlaceWithProfile } from "@/api";
 import { AddPlace } from "./AddPlace";
 import { Button } from "../Button/Button";
 import { createClient } from "@/utils/supabase/client";
+import { CATEGORIES } from "./AddPlaceModal";
+import { EmptyPlace } from "./EmptyPlace";
 
 interface PlaceListProps {
   places: PlaceWithProfile[];
@@ -55,17 +57,35 @@ export function PlaceCardContainer({ places, meetupId, votingList, votedCount }:
 
   return (
     <div className="flex flex-col gap-2 md:gap-4">
-      {places.map((place) => (
-        <PlaceCard
-          key={place.id}
-          place={place}
-          isSelected={selectedList.includes(place.id)}
-          onToggle={() => handleToggle(place.id)}
-          isUserVoted={isVoted}
-          isVotedCard={isVoted && selectedList.includes(place.id)}
-          votedCount={votedCount[place.id]}
-        />
-      ))}
+      {places.length === 0 ? (
+        <EmptyPlace />
+      ) : (
+        CATEGORIES.map((category) => {
+          const categoryList = places.filter((place) => place.category === category);
+          if (categoryList.length === 0) return null;
+          return (
+            <div key={category} className="flex flex-col gap-2">
+              <div className="border-primary border-l-4 pl-2 text-sm font-semibold text-text-primary">
+                {category}
+              </div>
+              {categoryList.map((place) => {
+                return (
+                  <PlaceCard
+                    key={place.id}
+                    place={place}
+                    isSelected={selectedList.includes(place.id)}
+                    onToggle={() => handleToggle(place.id)}
+                    isUserVoted={isVoted}
+                    isVotedCard={isVoted && selectedList.includes(place.id)}
+                    votedCount={votedCount[place.id]}
+                  />
+                );
+              })}
+            </div>
+          );
+        })
+      )}
+
       <AddPlace meetupId={meetupId} />
       <Button
         className="bg-black hover:bg-gray-800 active:bg-gray-950"
