@@ -6,12 +6,13 @@ import type { Tables, InsertDto } from "@/types/database";
 import { requireUserId } from "./auth";
 
 export type PlaceRow = Tables<"places">;
+export type PlaceWithProfile = PlaceRow & { profiles: { nickname: string } | null };
 
 /** 한 약속의 후보 장소 목록 (담은 순서대로) */
-export async function getPlaces(supabase: DbClient, meetupId: string): Promise<PlaceRow[]> {
+export async function getPlaces(supabase: DbClient, meetupId: string): Promise<PlaceWithProfile[]> {
   const { data, error } = await supabase
     .from("places")
-    .select("*")
+    .select("*, profiles(nickname)")
     .eq("meetup_id", meetupId)
     .order("created_at", { ascending: true });
   if (error) throw error;

@@ -42,27 +42,31 @@ export async function getMyVotedPlaceIds(supabase: DbClient, meetupId: string): 
 }
 
 /**
- * 투표 토글: 이미 내가 이 장소에 투표했으면 취소, 아니면 투표.
- * @returns 토글 후 상태 — true(투표됨) / false(취소됨)
+ * 내 투표를 placeIds로 맞춘다 — allPlaceIds(이 미팅의 후보 장소 전체)에 대한 내 기존 투표를
+ * 전부 지우고, placeIds만 다시 넣는다 (diff 계산 없이 매번 갱신).
  */
-export async function toggleVote(supabase: DbClient, placeId: string): Promise<boolean> {
+export async function setMyVotes(
+  supabase: DbClient,
+  allPlaceIds: string[],
+  placeIds: string[],
+): Promise<void> {
   const userId = await requireUserId(supabase);
 
-  const { data: existing, error: selectError } = await supabase
+  const { error: deleteError } = await supabase
     .from("votes")
-    .select("id")
-    .eq("place_id", placeId)
+    .delete()
     .eq("user_id", userId)
-    .maybeSingle();
-  if (selectError) throw selectError;
+    //리셋
+    .in("place_id", allPlaceIds);
 
-  if (existing) {
-    const { error } = await supabase.from("votes").delete().eq("id", existing.id);
-    if (error) throw error;
-    return false;
-  }
+  if (deleteError) throw deleteError;
 
-  const { error } = await supabase.from("votes").insert({ place_id: placeId, user_id: userId });
-  if (error) throw error;
-  return true;
+  //수정사항이 없으면 그냥 되돌림
+  if (placeIds.length === 0) return;
+
+  const { error: insertError } = await supabase
+    .from("votes")
+    .insert(placeIds.map((placeId) => ({ place_id: placeId, user_id: userId })));
+
+  if (insertError) throw insertError;
 }

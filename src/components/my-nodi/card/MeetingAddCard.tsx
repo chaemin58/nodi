@@ -1,6 +1,6 @@
 "use client";
 
-import SquarePlus from "@/assets/squre-plus.svg";
+import SquarePlus from "@/assets/icon/squre-plus.svg";
 import { useAddMeetingModal } from "@/hooks/useAddMeetingModal";
 
 export function MeetingAddCard() {

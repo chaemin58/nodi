@@ -182,7 +182,16 @@ export type Database = {
           is_confirmed?: boolean;
           course_order?: number | null;
           created_at?: string;
-        }
+        },
+        [
+          {
+            foreignKeyName: "places_added_by_fkey";
+            columns: ["added_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ]
       >;
       votes: Table<
         {

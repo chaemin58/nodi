@@ -41,3 +41,9 @@ export function getDaysLastMeetingDays(lastMeeting: Date): string {
     return `${Math.floor(days / 365)}년`;
   }
 }
+
+/**yyyy-mm-dd 형태를 mm월 dd일 형태로 바꿈.**/
+export const formatDateKorean = (date: string) => {
+  const [, month, day] = date.split("-");
+  return `${Number(month)}월 ${Number(day)}일`;
+};
