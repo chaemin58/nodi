@@ -25,7 +25,7 @@ export default async function MeetupDetailPage({
   if (!meetup || !group) return <div>오류발생</div>;
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 md:gap-6">
       {" "}
       <MeetupHeader
         groupTitle={group.name}
