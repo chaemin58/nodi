@@ -8,9 +8,10 @@ import type { PlaceWithProfile } from "@/api";
 interface ConfirmPlaceButtonProps {
   meetupId: string;
   places: PlaceWithProfile[];
+  votedCount: Record<string, number>;
 }
 
-export function ConfirmPlaceButton({ meetupId, places }: ConfirmPlaceButtonProps) {
+export function ConfirmPlaceButton({ meetupId, places, votedCount }: ConfirmPlaceButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,7 +21,12 @@ export function ConfirmPlaceButton({ meetupId, places }: ConfirmPlaceButtonProps
       </Button>
 
       {isOpen && (
-        <ConfirmPlaceModal meetupId={meetupId} places={places} onClose={() => setIsOpen(false)} />
+        <ConfirmPlaceModal
+          votedCount={votedCount}
+          meetupId={meetupId}
+          places={places}
+          onClose={() => setIsOpen(false)}
+        />
       )}
     </>
   );

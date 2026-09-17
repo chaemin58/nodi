@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { PlaceCardContainer } from "./PlaceCardContainer";
+import { ConfirmPlaceButton } from "./ConfirmPlaceButton";
 import { getPlaces } from "@/api";
-import { Button } from "../Button/Button";
 
 interface VotingPlaceProps {
   meetupId: string;
@@ -17,7 +17,7 @@ export async function VotingPlace({ meetupId, votingList, votedCount }: VotingPl
     <div className="flex flex-col gap-4 lg:max-w-200">
       <div className="flex justify-between items-center">
         <div className="text-xl font-semibold ">후보 장소</div>
-        <Button className="w-37.5 h-11">장소 결정하기</Button>
+        <ConfirmPlaceButton meetupId={meetupId} places={places} votedCount={votedCount} />
       </div>
       <PlaceCardContainer
         votedCount={votedCount}
