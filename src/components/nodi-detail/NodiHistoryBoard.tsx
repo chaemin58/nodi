@@ -28,6 +28,7 @@ export function NodiHistoryBoard({
       </div>
       <div className="flex flex-col gap-2">
         <div className="text-lg font-semibold text-text-secondary">마지막 만남</div>
+        {/* @TODO 음수로 나오는 경우 있음 */}
         <div className="text-[22px] font-bold">{lastMeetingAgo}</div>
       </div>
       <div className="flex flex-col gap-2">
