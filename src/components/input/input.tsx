@@ -43,7 +43,7 @@ export default function Input({
         <div
           className={cn(
             "focus-within:border-text-primary flex h-[54px] items-center gap-2 rounded-2xl border px-4 has-[:disabled]:opacity-40",
-            isWarning ? "border-error" : "border-defualt",
+            isWarning ? "border-error" : "border-default",
           )}
         >
           {prefix}
