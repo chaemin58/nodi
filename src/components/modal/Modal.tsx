@@ -53,7 +53,7 @@ export function Modal({ children, onClose, isDismissable }: ModalProps) {
         onClick={handleOverlayClick}
       >
         <div
-          className="modal-container min-w-80 rounded-2xl bg-white"
+          className="modal-container flex min-w-80 flex-col gap-6 rounded-[50px] bg-white px-10 py-8"
           onClick={(e) => e.stopPropagation()}
         >
           {children}

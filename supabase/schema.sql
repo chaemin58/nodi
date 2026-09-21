@@ -45,6 +45,7 @@ create table meetups (
   created_by  uuid not null references profiles(id) on delete cascade,
   status      text not null default 'voting',   -- 'voting' | 'confirmed'
   meet_date   date,                              -- 약속 날짜(선택)
+  emoji       text check (char_length(emoji) <= 16),  -- 썸네일 이모지 (null=미지정, 로고 폴백)
   is_shared   boolean not null default false,    -- 링크 공유 여부
   share_token text unique default gen_random_uuid()::text,
   created_at  timestamptz default now()
@@ -203,6 +204,7 @@ language sql security definer set search_path = public stable as $$
         'title',     m.title,
         'status',    m.status,
         'meet_date', m.meet_date,
+        'emoji',     m.emoji,
         'place_count',
           (select count(*) from places pl where pl.meetup_id = m.id),
         'confirmed_place',

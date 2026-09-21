@@ -18,7 +18,7 @@ export function ModalHeader({ children, className = "" }: ModalHeaderProps) {
   if (!isDismissable) return null;
 
   return (
-    <div className={cn("flex items-center justify-between p-4", className)}>
+    <div className={cn("flex items-center justify-between", className)}>
       {children}
       <button type="button" onClick={onClose}>
         <DeleteIcon width={20} height={20} className="cursor-pointer" />

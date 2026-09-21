@@ -113,6 +113,7 @@ export type Database = {
           created_by: string;
           status: string;
           meet_date: string | null;
+          emoji: string | null;
           is_shared: boolean;
           share_token: string;
           created_at: string;
@@ -124,6 +125,7 @@ export type Database = {
           created_by: string;
           status?: string;
           meet_date?: string | null;
+          emoji?: string | null;
           is_shared?: boolean;
           share_token?: string;
           created_at?: string;
@@ -135,6 +137,7 @@ export type Database = {
           created_by?: string;
           status?: string;
           meet_date?: string | null;
+          emoji?: string | null;
           is_shared?: boolean;
           share_token?: string;
           created_at?: string;
@@ -250,6 +253,7 @@ export type Database = {
             title: string;
             status: string;
             meet_date: string | null;
+            emoji: string | null;
             place_count: number;
             confirmed_place: string | null;
           } | null;

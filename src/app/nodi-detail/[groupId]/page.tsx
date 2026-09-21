@@ -2,7 +2,6 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { getGroup, getGroupMembers, getMeetupsByGroup } from "@/api";
 import type { AvatarGroupMember } from "@/components/avatar";
-import type { BadgeKind } from "@/tokens/badges";
 import { NodiDetailHeader } from "@/components/nodi-detail/NodiDetailHeader";
 import { NodiHistoryBoard } from "@/components/nodi-detail/NodiHistoryBoard";
 import { CurrentNodiContainer } from "@/components/nodi-detail/CurrentNodiContainer";
@@ -54,7 +53,6 @@ export default async function NodiDetailPage({ params }: { params: Promise<{ gro
     <div className="mx-auto flex max-w-4xl flex-col gap-6 p-6 lg:gap-10">
       <NodiDetailHeader
         nodiTitle={group.name}
-        // DB는 "없음"을 null로, prop은 undefined로 표현한다
         statusMessage={group.status_message ?? undefined}
         members={members}
         headCount={members.length}
