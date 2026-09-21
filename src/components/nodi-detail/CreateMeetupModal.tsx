@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Modal } from "../modal";
 import Input from "../input";
 
@@ -15,6 +16,7 @@ interface CreateMeetupModalProps {
 }
 
 export function CreateMeetupModal({ onClose, groupId }: CreateMeetupModalProps) {
+  const router = useRouter();
   const [isDateUndecided, setIsDateUndecided] = useState(false);
   const [meetupTitle, setMeetupTitle] = useState<string>("");
   const [meetDate, setMeetDate] = useState<string>("");
@@ -52,6 +54,9 @@ export function CreateMeetupModal({ onClose, groupId }: CreateMeetupModalProps) 
 
     const { id } = await res.json();
     setCreatedMeetupId(id);
+
+    // 서버 컴포넌트(진행 중인 약속 목록)를 다시 읽어 새 약속이 바로 보이게 한다.
+    router.refresh();
 
     //안내 모달로 넘기기
     setStep("second");
