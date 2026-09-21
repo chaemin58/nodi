@@ -73,8 +73,11 @@ export function CreateMeetupModal({ onClose, groupId }: CreateMeetupModalProps) 
           <Button variant="secondary" onClick={onClose}>
             확인
           </Button>
-          {/* TODO: 약속 상세 페이지가 생기면 createdMeetupId 로 이동 */}
-          <Button variant="primary" disabled={!createdMeetupId}>
+          <Button
+            variant="primary"
+            disabled={!createdMeetupId}
+            onClick={() => router.push(`/nodi-detail/${groupId}/meetup-detail/${createdMeetupId}`)}
+          >
             약속 보러가기
           </Button>
         </Modal.Footer>
