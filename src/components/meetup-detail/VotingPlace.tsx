@@ -7,6 +7,7 @@ interface VotingPlaceProps {
   meetupId: string;
   votingList: string[];
   votedCount: Record<string, number>;
+  isConfirmed: boolean;
   confirmPlace: PlaceRow[];
 }
 
@@ -15,6 +16,7 @@ export async function VotingPlace({
   meetupId,
   votingList,
   votedCount,
+  isConfirmed,
 }: VotingPlaceProps) {
   const supabase = await createClient();
   const places = await getPlaces(supabase, meetupId);
@@ -35,6 +37,7 @@ export async function VotingPlace({
         places={places}
         meetupId={meetupId}
         votingList={votingList}
+        isConfirmed={isConfirmed}
       />
     </div>
   );

@@ -40,6 +40,7 @@ export default async function MeetupDetailPage({
         meetupId={meetupId}
         votingList={votingList}
         votedCount={votedCount}
+        isConfirmed={meetup.status === "confirmed"}
         confirmPlace={confirmPlace}
       />
     </div>
