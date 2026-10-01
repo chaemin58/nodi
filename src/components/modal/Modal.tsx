@@ -30,14 +30,24 @@ export function Modal({ children, onClose, isDismissable }: ModalProps) {
   }, []);
 
   useEffect(() => {
-    if (!isDismissable) return;
+    //모달의 띄워지면 본문의 스크롤은 막아준다.
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    if (isDismissable) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.body.style.overflow = prev;
+      if (isDismissable) {
+        document.removeEventListener("keydown", handleKeyDown);
+      }
+    };
   }, [isDismissable, onClose]);
 
   if (!isMounted) return null;
@@ -53,7 +63,7 @@ export function Modal({ children, onClose, isDismissable }: ModalProps) {
         onClick={handleOverlayClick}
       >
         <div
-          className="modal-container flex min-w-80 flex-col gap-6 rounded-[50px] bg-white px-10 py-8"
+          className="modal-container flex max-h-[calc(100dvh-2rem)] min-w-80 flex-col gap-6 rounded-[50px] bg-white px-10 py-8"
           onClick={(e) => e.stopPropagation()}
         >
           {children}
