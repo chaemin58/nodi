@@ -28,7 +28,7 @@ export function StatusDisplay({ type, title, options, url }: StatusDisplayProps)
           <span className="font-normal">으로 확정</span>
         </div>
         {/* 추후 앱안 지도로 변경 */}
-        <a href={url} className="text-gray-400 text-sm underline">
+        <a href={url} className="relative z-10 text-gray-400 text-sm underline">
           장소 보러가기
         </a>
       </div>

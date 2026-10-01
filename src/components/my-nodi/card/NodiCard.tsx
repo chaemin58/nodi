@@ -33,7 +33,9 @@ export function NodiCard({
   color,
 }: NodiCardProps) {
   return (
-    <Link href={`/nodi-detail/${id}`}>
+    // 카드 전체 클릭은 덮어씌운 Link로 처리 (카드 안에 또 <a>가 있어서 감쌀 수 없음)
+    <div className="relative">
+      <Link href={`/nodi-detail/${id}`} aria-label={title} className="absolute inset-0 z-0" />
       <div className="w-full min-h-68 lg:min-h-70 cursor-pointer overflow-hidden border-border border-border-default rounded-2xl border bg-surface shadow-sm self-stretch">
         {/* 커버 + 멤버 아바타 */}
         <div
@@ -62,6 +64,6 @@ export function NodiCard({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
