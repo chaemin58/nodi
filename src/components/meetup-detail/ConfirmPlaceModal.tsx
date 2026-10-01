@@ -3,7 +3,7 @@
 import { Modal } from "../modal/Modal";
 import { ModalBody } from "../modal/ModalBody";
 import { ModalHeader } from "../modal/ModalHeader";
-import { confirmCourse, setMeetupStatus, type PlaceWithProfile } from "@/api";
+import { confirmCourse, PlaceRow, setMeetupStatus, type PlaceWithProfile } from "@/api";
 import { PlaceCard } from "./PlaceCard";
 import { useState } from "react";
 import { Button } from "../Button/Button";
@@ -16,18 +16,22 @@ interface ConfirmPlaceModalProps {
   places: PlaceWithProfile[];
   onClose: () => void;
   votedCount: Record<string, number>;
+  confirmPlace: PlaceRow[];
 }
 export function ConfirmPlaceModal({
   onClose,
   meetupId,
   places,
   votedCount,
+  confirmPlace,
 }: ConfirmPlaceModalProps) {
   const [step, setStep] = useState<"first" | "second">("first");
   const [selectdList, setSelectedList] = useState<PlaceWithProfile[]>([]);
   const [isNotSelected, setIsNotSelected] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  // console.log(confirmPlace);
 
   const handleToggle = (place: PlaceWithProfile) => {
     setSelectedList((prev) =>
@@ -67,17 +71,22 @@ export function ConfirmPlaceModal({
       <Modal onClose={onClose} isDismissable>
         <ModalHeader className="font-bold md:text-lg">장소 결정하기</ModalHeader>
         <ModalBody className="gap-2 p-4">
-          {places.map((place) => (
-            <PlaceCard
-              key={place.id}
-              place={place}
-              isSelected={selectdList.some((p) => p.id === place.id)}
-              onToggle={() => handleToggle(place)}
-              isUserVoted={false}
-              isVotedCard={false}
-              votedCount={votedCount[place.id]}
-            />
-          ))}
+          {places.map((place) => {
+            const isConfirmed = confirmPlace.some((c) => c.id === place.id);
+            return (
+              <PlaceCard
+                key={place.id}
+                place={place}
+                isSelected={selectdList.some((p) => p.id === place.id)}
+                onToggle={() => handleToggle(place)}
+                isUserVoted={false}
+                //이 부분을 장소 확정했다면 true로 내려줘야함
+                //배열을 돌아서 확인만하고 맞는게잇으면 true 리턴
+                isVotedCard={isConfirmed}
+                votedCount={votedCount[place.id]}
+              />
+            );
+          })}
         </ModalBody>
         <ModalFooter className="flex flex-col gap-2 p-4 pt-2">
           {isNotSelected && <div className="text-error text-sm">원하는 장소를 선택해주세요!!</div>}

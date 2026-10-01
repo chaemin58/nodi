@@ -1,4 +1,4 @@
-import { getGroup, getMeetup, getMyVotedPlaceIds, getVoteCounts } from "@/api";
+import { getConfirmedCourse, getGroup, getMeetup, getMyVotedPlaceIds, getVoteCounts } from "@/api";
 import { MeetupHeader } from "@/components/meetup-detail/MeetupHeader";
 import { VotingPlace } from "@/components/meetup-detail/VotingPlace";
 import { BadgeKind } from "@/tokens/badges";
@@ -22,6 +22,9 @@ export default async function MeetupDetailPage({
   //장소별 득표 수 확인
   const votedCount = await getVoteCounts(supabase, meetupId);
 
+  //확정 코스 가져오기
+  const confirmPlace = await getConfirmedCourse(supabase, meetupId);
+
   if (!meetup || !group) return <div>오류발생</div>;
 
   return (
@@ -33,7 +36,12 @@ export default async function MeetupDetailPage({
         badge={meetup.status as BadgeKind}
         date={meetup.meet_date ?? ""}
       />
-      <VotingPlace meetupId={meetupId} votingList={votingList} votedCount={votedCount} />
+      <VotingPlace
+        meetupId={meetupId}
+        votingList={votingList}
+        votedCount={votedCount}
+        confirmPlace={confirmPlace}
+      />
     </div>
   );
 }

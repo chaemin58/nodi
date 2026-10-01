@@ -3,15 +3,21 @@
 import { useState } from "react";
 import { Button } from "../Button/Button";
 import { ConfirmPlaceModal } from "./ConfirmPlaceModal";
-import type { PlaceWithProfile } from "@/api";
+import type { PlaceRow, PlaceWithProfile } from "@/api";
 
 interface ConfirmPlaceButtonProps {
   meetupId: string;
   places: PlaceWithProfile[];
   votedCount: Record<string, number>;
+  confirmPlace: PlaceRow[];
 }
 
-export function ConfirmPlaceButton({ meetupId, places, votedCount }: ConfirmPlaceButtonProps) {
+export function ConfirmPlaceButton({
+  meetupId,
+  places,
+  votedCount,
+  confirmPlace,
+}: ConfirmPlaceButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -22,6 +28,7 @@ export function ConfirmPlaceButton({ meetupId, places, votedCount }: ConfirmPlac
 
       {isOpen && (
         <ConfirmPlaceModal
+          confirmPlace={confirmPlace}
           votedCount={votedCount}
           meetupId={meetupId}
           places={places}
