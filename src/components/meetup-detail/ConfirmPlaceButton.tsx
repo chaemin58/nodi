@@ -27,7 +27,7 @@ export function ConfirmPlaceButton({
         className="w-37.5 h-11"
         onClick={() => setIsOpen(true)}
       >
-        장소 결정하기
+        장소 확정하기
       </Button>
 
       {isOpen && (
