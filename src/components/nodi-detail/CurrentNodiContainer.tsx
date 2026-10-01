@@ -1,5 +1,5 @@
 import Logo from "@/assets/icon/logo.svg";
-import { Button } from "../Button/Button";
+import { CreateMeetupButton } from "./CreateMeetupButton";
 import { CurrentNodi } from "./CurrentNodi";
 import { MeetupRow } from "@/api";
 
@@ -16,7 +16,7 @@ export function CurrentNodiContainer({ currentNodiList, groupId }: CurrentNodiCo
         <div className="font-semibold lg:text-lg">진행 중인 약속</div>
       </div>
       <CurrentNodi groupId={groupId} currentNodiList={currentNodiList} />
-      <Button size="md">약속 추가하기</Button>
+      <CreateMeetupButton groupId={groupId} />
     </div>
   );
 }

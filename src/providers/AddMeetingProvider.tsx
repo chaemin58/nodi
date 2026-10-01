@@ -88,14 +88,15 @@ export function AddMeetingProvider({ children }: { children: ReactNode }) {
         <Modal isDismissable={step === "form"} onClose={close}>
           {step === "form" ? (
             <>
-              <Modal.Header className="font-semibold text-lg">새 모임 만들기</Modal.Header>
+              <Modal.Header className="font-semibold text-xl">
+                <div className="mx-auto">새 모임 만들기</div>
+              </Modal.Header>
               <Input
                 placeholder="모임 이름"
-                className="px-4 pb-1 pt-3"
                 value={meetingTitle}
                 onChange={(e) => setMeetingTitle(e.target.value)}
               />
-              <div className="flex flex-col gap-2 px-4 pt-3">
+              <div className="flex flex-col gap-2">
                 <p className="text-sm text-text-secondary">카드 색</p>
                 <div className="flex flex-wrap gap-2">
                   {GROUP_COLORS.map((c) => (
@@ -107,16 +108,14 @@ export function AddMeetingProvider({ children }: { children: ReactNode }) {
                       onClick={() => setColor(c)}
                       style={{ backgroundColor: coverColorVar(c) }}
                       className={`size-7 cursor-pointer rounded-full transition ${
-                        c === color
-                          ? "ring-2 ring-primary ring-offset-2"
-                          : "ring-1 ring-gray-100"
+                        c === color ? "ring-2 ring-primary ring-offset-2" : "ring-1 ring-gray-100"
                       }`}
                     />
                   ))}
                 </div>
               </div>
-              {isError && <p className="px-4 text-sm text-error">모임 생성에 실패했어요.</p>}
-              <Modal.Footer className="flex gap-2 p-4">
+              {isError && <p className="text-sm text-error">모임 생성에 실패했어요.</p>}
+              <Modal.Footer className="flex gap-2">
                 <Button variant="secondary" onClick={close}>
                   취소
                 </Button>
@@ -131,14 +130,14 @@ export function AddMeetingProvider({ children }: { children: ReactNode }) {
             </>
           ) : (
             <>
-              <div className="flex flex-col gap-2 p-6 text-center">
+              <div className="flex flex-col gap-2 text-center">
                 {/* 이름 뒤 조사는 받침에 따라 달라지므로, 뒤에 고정어(모임이)를 붙여 회피 */}
                 <p className="text-lg font-semibold">
                   &lsquo;{createdGroup?.name}&rsquo; 모임이 만들어졌어요!
                 </p>
                 <p className="text-sm text-gray-400">초대 링크를 복사해 친구를 초대해보세요.</p>
               </div>
-              <Modal.Footer className="flex gap-2 p-4">
+              <Modal.Footer className="flex gap-2">
                 <Button variant="secondary" onClick={handleCopyInvite}>
                   초대 링크 복사
                 </Button>
