@@ -30,6 +30,9 @@ export function Modal({ children, onClose, isDismissable }: ModalProps) {
   }, []);
 
   useEffect(() => {
+    //모달의 띄워지면 본문의 스크롤은 막아준다.
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     if (!isDismissable) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -37,7 +40,10 @@ export function Modal({ children, onClose, isDismissable }: ModalProps) {
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isDismissable, onClose]);
 
   if (!isMounted) return null;
