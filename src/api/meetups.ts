@@ -79,8 +79,13 @@ export async function setMeetupDate(
   meetupId: string,
   meetDate: string,
 ): Promise<void> {
-  const { error } = await supabase.from("meetups").update({ meet_date: meetDate }).eq("id", meetupId);
+  const { data, error } = await supabase
+    .from("meetups")
+    .update({ meet_date: meetDate })
+    .eq("id", meetupId)
+    .select("id");
   if (error) throw error;
+  if (!data || data.length === 0) throw new Error("약속 날짜를 변경할 수 없습니다.");
 }
 
 /** 링크 공유 켜기/끄기 (비회원도 볼 수 있게) */
