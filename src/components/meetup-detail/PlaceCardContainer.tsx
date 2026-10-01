@@ -15,9 +15,16 @@ interface PlaceListProps {
   meetupId: string;
   votingList: string[];
   votedCount: Record<string, number>;
+  isConfirmed: boolean;
 }
 
-export function PlaceCardContainer({ places, meetupId, votingList, votedCount }: PlaceListProps) {
+export function PlaceCardContainer({
+  places,
+  meetupId,
+  votingList,
+  votedCount,
+  isConfirmed,
+}: PlaceListProps) {
   const [selectedList, setSelectedList] = useState<string[]>(votingList);
   const [isVoted, setIsVoted] = useState<boolean>(votingList.length !== 0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -90,7 +97,7 @@ export function PlaceCardContainer({ places, meetupId, votingList, votedCount }:
       <Button
         className="bg-black hover:bg-gray-800 active:bg-gray-950"
         onClick={isVoted ? handleVotingAgain : handleVoting}
-        disabled={isLoading}
+        disabled={isLoading || isConfirmed || places.length === 0}
       >
         {isVoted ? "다시 투표하기" : "투표하기"}
       </Button>

@@ -1,15 +1,23 @@
 import { createClient } from "@/utils/supabase/server";
 import { PlaceCardContainer } from "./PlaceCardContainer";
-import { getPlaces } from "@/api";
-import { Button } from "../Button/Button";
+import { ConfirmPlaceButton } from "./ConfirmPlaceButton";
+import { getPlaces, PlaceRow } from "@/api";
 
 interface VotingPlaceProps {
   meetupId: string;
   votingList: string[];
   votedCount: Record<string, number>;
+  isConfirmed: boolean;
+  confirmPlace: PlaceRow[];
 }
 
-export async function VotingPlace({ meetupId, votingList, votedCount }: VotingPlaceProps) {
+export async function VotingPlace({
+  confirmPlace,
+  meetupId,
+  votingList,
+  votedCount,
+  isConfirmed,
+}: VotingPlaceProps) {
   const supabase = await createClient();
   const places = await getPlaces(supabase, meetupId);
 
@@ -17,13 +25,19 @@ export async function VotingPlace({ meetupId, votingList, votedCount }: VotingPl
     <div className="flex flex-col gap-4 lg:max-w-200">
       <div className="flex justify-between items-center">
         <div className="text-xl font-semibold ">후보 장소</div>
-        <Button className="w-37.5 h-11">장소 결정하기</Button>
+        <ConfirmPlaceButton
+          meetupId={meetupId}
+          places={places}
+          votedCount={votedCount}
+          confirmPlace={confirmPlace}
+        />
       </div>
       <PlaceCardContainer
         votedCount={votedCount}
         places={places}
         meetupId={meetupId}
         votingList={votingList}
+        isConfirmed={isConfirmed}
       />
     </div>
   );
