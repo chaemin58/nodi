@@ -22,7 +22,11 @@ export function ConfirmPlaceButton({
 
   return (
     <>
-      <Button className="w-37.5 h-11" onClick={() => setIsOpen(true)}>
+      <Button
+        disabled={places.length === 0}
+        className="w-37.5 h-11"
+        onClick={() => setIsOpen(true)}
+      >
         장소 결정하기
       </Button>
 
