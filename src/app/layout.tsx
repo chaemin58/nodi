@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AddMeetingProvider } from "@/providers/AddMeetingProvider";
+import { Toaster } from "@/components/Toast/Toaster";
 
 export const metadata: Metadata = {
   title: "Nodi — 약속 장소, 같이 정하기",
@@ -28,6 +29,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <AddMeetingProvider>{children}</AddMeetingProvider>
+        <Toaster />
       </body>
     </html>
   );
