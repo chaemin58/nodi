@@ -33,16 +33,20 @@ export function Modal({ children, onClose, isDismissable }: ModalProps) {
     //모달의 띄워지면 본문의 스크롤은 막아준다.
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    if (!isDismissable) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    if (isDismissable) {
+      document.addEventListener("keydown", handleKeyDown);
+    }
+
     return () => {
       document.body.style.overflow = prev;
-      document.removeEventListener("keydown", handleKeyDown);
+      if (isDismissable) {
+        document.removeEventListener("keydown", handleKeyDown);
+      }
     };
   }, [isDismissable, onClose]);
 
