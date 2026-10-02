@@ -33,7 +33,8 @@ export function NodiCard({
   color,
 }: NodiCardProps) {
   return (
-    <Link href={`/nodi-detail/${id}`}>
+    <div className="relative">
+      <Link href={`/nodi-detail/${id}`} aria-label={title} className="absolute inset-0 z-10" />
       <div className="w-full min-h-68 lg:min-h-70 cursor-pointer overflow-hidden border-border border-border-default rounded-2xl border bg-surface shadow-sm self-stretch">
         {/* 커버 + 멤버 아바타 */}
         <div
@@ -62,6 +63,6 @@ export function NodiCard({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

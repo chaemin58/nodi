@@ -31,10 +31,11 @@ export default async function MeetupDetailPage({
     <div className="flex flex-col gap-2 md:gap-6">
       {" "}
       <MeetupHeader
+        meetupId={meetupId}
         groupTitle={group.name}
         meetupTitle={meetup.title}
         badge={meetup.status as BadgeKind}
-        date={meetup.meet_date ?? ""}
+        date={meetup.meet_date}
       />
       <VotingPlace
         meetupId={meetupId}
