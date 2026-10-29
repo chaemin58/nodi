@@ -69,7 +69,7 @@ export function ConfirmPlaceModal({
   if (step === "first") {
     return (
       <Modal onClose={onClose} isDismissable>
-        <ModalHeader className="font-bold md:text-lg">장소 결정하기</ModalHeader>
+        <ModalHeader className="font-bold md:text-lg">장소 확정하기</ModalHeader>
         <ModalBody className="gap-2 p-4">
           {places.map((place) => {
             const isConfirmed = confirmPlace.some((c) => c.id === place.id);
@@ -90,7 +90,7 @@ export function ConfirmPlaceModal({
         </ModalBody>
         <ModalFooter className="flex flex-col gap-2 p-4 pt-2">
           {isNotSelected && <div className="text-error text-sm">원하는 장소를 선택해주세요!!</div>}
-          <Button onClick={() => handleClickConfirm(selectdList)}>결정하기</Button>
+          <Button onClick={() => handleClickConfirm(selectdList)}>확정하기</Button>
         </ModalFooter>
       </Modal>
     );
