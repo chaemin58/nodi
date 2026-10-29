@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { PlaceCardContainer } from "./PlaceCardContainer";
 import { ConfirmPlaceButton } from "./ConfirmPlaceButton";
-import { getPlaces, PlaceRow } from "@/api";
+import { getPlaces, MeetupRow, PlaceRow } from "@/api";
 
 interface VotingPlaceProps {
   meetupId: string;
@@ -9,6 +9,7 @@ interface VotingPlaceProps {
   votedCount: Record<string, number>;
   isConfirmed: boolean;
   confirmPlace: PlaceRow[];
+  meetup: MeetupRow;
 }
 
 export async function VotingPlace({
@@ -17,6 +18,7 @@ export async function VotingPlace({
   votingList,
   votedCount,
   isConfirmed,
+  meetup,
 }: VotingPlaceProps) {
   const supabase = await createClient();
   const places = await getPlaces(supabase, meetupId);
@@ -33,6 +35,7 @@ export async function VotingPlace({
         />
       </div>
       <PlaceCardContainer
+        meetup={meetup}
         votedCount={votedCount}
         places={places}
         meetupId={meetupId}
