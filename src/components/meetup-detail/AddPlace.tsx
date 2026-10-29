@@ -3,14 +3,17 @@
 import SquarePlusBtn from "@/assets/icon/squre-plus.svg";
 import { useState } from "react";
 import { AddPlaceModal } from "./AddPlaceModal";
+import { MeetupRow } from "@/api";
 
 interface AddPlaceProps {
   meetupId: string;
+  meetup: MeetupRow;
 }
 
-export function AddPlace({ meetupId }: AddPlaceProps) {
+export function AddPlace({ meetupId, meetup }: AddPlaceProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  if (meetup.status === "confirmed") return null;
   return (
     <>
       <div

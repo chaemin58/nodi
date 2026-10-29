@@ -37,6 +37,7 @@ export default async function MeetupDetailPage({
         date={meetup.meet_date ?? ""}
       />
       <VotingPlace
+        meetup={meetup}
         meetupId={meetupId}
         votingList={votingList}
         votedCount={votedCount}

@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlaceCard } from "./PlaceCard";
-import { setMyVotes, type PlaceWithProfile } from "@/api";
+import { MeetupRow, setMyVotes, type PlaceWithProfile } from "@/api";
 import { AddPlace } from "./AddPlace";
 import { Button } from "../Button/Button";
 import { createClient } from "@/utils/supabase/client";
 import { CATEGORIES } from "./AddPlaceModal";
 import { EmptyPlace } from "./EmptyPlace";
+import { Meetup } from "@/types";
 
 interface PlaceListProps {
   places: PlaceWithProfile[];
@@ -16,6 +17,7 @@ interface PlaceListProps {
   votingList: string[];
   votedCount: Record<string, number>;
   isConfirmed: boolean;
+  meetup: MeetupRow;
 }
 
 export function PlaceCardContainer({
@@ -24,6 +26,7 @@ export function PlaceCardContainer({
   votingList,
   votedCount,
   isConfirmed,
+  meetup,
 }: PlaceListProps) {
   const [selectedList, setSelectedList] = useState<string[]>(votingList);
   const [isVoted, setIsVoted] = useState<boolean>(votingList.length !== 0);
@@ -93,7 +96,7 @@ export function PlaceCardContainer({
         })
       )}
 
-      <AddPlace meetupId={meetupId} />
+      <AddPlace meetupId={meetupId} meetup={meetup} />
       <Button
         className="bg-black hover:bg-gray-800 active:bg-gray-950"
         onClick={isVoted ? handleVotingAgain : handleVoting}
